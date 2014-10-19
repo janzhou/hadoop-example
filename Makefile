@@ -1,5 +1,6 @@
 HADOOP = hadoop
 HDFS   = hdfs
+YARN   = yarn
 TEST_DIR = /janzhou-hadoop-example
  
 APP = hadoop-example.jar
@@ -9,7 +10,7 @@ OUT = out
 $(APP): $(SRC) 
 	mkdir -p $(OUT) 
 	javac -classpath `$(HADOOP) classpath` -d $(OUT) $(SRC) 
-	jar -cvf $(APP).jar -C $(OUT) .
+	jar -cvf $(APP) -C $(OUT) .
 
 prepare:
 	$(HDFS) dfs -mkdir $(TEST_DIR)
@@ -18,7 +19,7 @@ prepare:
 	$(HDFS) dfs -copyFromLocal LICENSE $(TEST_DIR)/wordcount/input
  
 test: $(APP)
-	$(HADOOP) jar hadoop-example.jar org.janzhou.WordCount $(TEST_DIR)/wordcount/input $(TEST_DIR)/wordcount/output
+	$(YARN) jar hadoop-example.jar org.janzhou.WordCount $(TEST_DIR)/wordcount/input $(TEST_DIR)/wordcount/output
 
 clean: 
 	rm -rf $(OUT) *.jar
