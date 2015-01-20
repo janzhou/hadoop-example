@@ -19,15 +19,15 @@ prepare:
 	$(HDFS) dfs -copyFromLocal LICENSE $(TEST_DIR)/wordcount/input
 	$(HDFS) dfs -mkdir $(TEST_DIR)/matrixmultiplic
 	$(HDFS) dfs -mkdir $(TEST_DIR)/matrixmultiplic/input
-	$(HDFS) dfs -copyFromLocal test/Matrix.txt $(TEST_DIR)/matrixmultiplic/input
+	$(HDFS) dfs -copyFromLocal data/Matrix.txt $(TEST_DIR)/matrixmultiplic/input
  
 test: $(APP)
 	$(YARN) jar hadoop-example.jar org.janzhou.WordCount $(TEST_DIR)/wordcount/input $(TEST_DIR)/wordcount/output
 	$(YARN) jar hadoop-example.jar org.janzhou.MatrixMultiplication $(TEST_DIR)/matrixmultiplic/input $(TEST_DIR)/matrixmultiplic/output
-	mkdir -p test/result
-	$(HDFS) dfs -copyToLocal $(TEST_DIR)/wordcount/output/part-r-00000 test/result/wordcount.txt
-	$(HDFS) dfs -copyToLocal $(TEST_DIR)/matrixmultiplic/output/part-r-00000 test/result/matrixmultiplic.txt
+	mkdir -p result
+	$(HDFS) dfs -copyToLocal $(TEST_DIR)/wordcount/output/part-r-00000 result/wordcount.txt
+	$(HDFS) dfs -copyToLocal $(TEST_DIR)/matrixmultiplic/output/part-r-00000 result/matrixmultiplic.txt
 
 clean: 
-	rm -rf $(OUT) *.jar
+	rm -rf $(OUT) *.jar result
 	$(HDFS) dfs -rm -r $(TEST_DIR)
