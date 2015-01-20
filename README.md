@@ -16,19 +16,17 @@ Compile
 Prepare test data
 -----------------
 
-    make parpare
+    make prepare
 
 Run the test
 ------------
 
     make test
 
+The results is located under ``test/result`` in local.
+
 Clean all the files (including test data)
 -----------------------------------------
 
     make clean
 
-Results
--------
-
-The results is located under ``test/result`` in local.

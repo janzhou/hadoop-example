@@ -24,6 +24,7 @@ prepare:
 test: $(APP)
 	$(YARN) jar hadoop-example.jar org.janzhou.WordCount $(TEST_DIR)/wordcount/input $(TEST_DIR)/wordcount/output
 	$(YARN) jar hadoop-example.jar org.janzhou.MatrixMultiplication $(TEST_DIR)/matrixmultiplic/input $(TEST_DIR)/matrixmultiplic/output
+	mkdir -p test/result
 	$(HDFS) dfs -copyToLocal $(TEST_DIR)/wordcount/output/part-r-00000 test/result/wordcount.txt
 	$(HDFS) dfs -copyToLocal $(TEST_DIR)/matrixmultiplic/output/part-r-00000 test/result/matrixmultiplic.txt
 
